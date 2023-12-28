@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-labs',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './labs.component.html',
-  styleUrl: './labs.component.scss'
+  styleUrl: './labs.component.scss',
 })
 export class LabsComponent {
+  name = signal('Armando');
 
+  tasks = signal([{ name: 'Sweep' }, { name: 'swimming' }]);
+
+  changeHandler(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.name.set(input.value);
+  }
 }

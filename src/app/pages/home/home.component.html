@@ -3,62 +3,74 @@
     <div class="container">
       <h1>My Day</h1>
       <p>All my tasks in one place</p>
-      <input
-        class="new-todo"
-        placeholder="Type new todo"
-        autofocus
-        type="text"
-      />
+      <form [formGroup]="todoForm">
+        <input
+          (change)="changeHandler()"
+          class="new-todo"
+          placeholder="Type new todo"
+          autofocus
+          type="text"
+          formControlName="newTask"
+        />
+      </form>
     </div>
   </header>
   <div class="container todoapp-wrapper">
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
       <ul class="todo-list">
-        <li class="completed">
+        <li
+          *ngFor="let task of taskByFilters()"
+          [ngClass]="{ completed: task.checked }"
+        >
           <div class="view">
-            <input class="toggle" type="checkbox" checked />
-            <label>Learn JavaScript</label>
-            <button class="destroy"></button>
+            <input
+              class="toggle"
+              type="checkbox"
+              (change)="checkTask(task.id)"
+              [checked]="task.checked"
+            />
+            <label>{{ task.name }}</label>
+            <button (click)="deleteTask(task.id)" class="destroy"></button>
           </div>
-          <input class="edit" value="Learn JavaScript" />
-        </li>
-        <li>
-          <div class="view">
-            <input class="toggle" type="checkbox" />
-            <label>Buy a unicorn</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="Buy a unicorn" />
-        </li>
-        <li class="editing">
-          <div class="view">
-            <input class="toggle" type="checkbox" />
-            <label>Make dishes</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="Make dishes" />
+          <input class="edit" [value]="task.name" />
         </li>
       </ul>
     </section>
     <!-- This footer should be hidden by default and shown when there are todos -->
     <footer class="footer">
       <!-- This should be `0 items left` by default -->
-      <span class="todo-count"><strong>0</strong> item left</span>
+      <span class="todo-count"
+        ><strong>{{ taskLeft }}</strong> item left</span
+      >
       <!-- Remove this if you don't implement routing -->
       <ul class="filters">
         <li>
-          <a routerLink="/" class="selected">All</a>
+          <a
+            [ngClass]="{ selected: filter() === filters.All }"
+            (click)="filter.set(filters.All)"
+            >All</a
+          >
         </li>
         <li>
-          <a routerLink="/pending">Pending</a>
+          <a
+            [ngClass]="{ selected: filter() === filters.Pending }"
+            (click)="filter.set(filters.Pending)"
+            >Pending</a
+          >
         </li>
         <li>
-          <a routerLink="/completed">Completed</a>
+          <a
+            [ngClass]="{ selected: filter() === filters.Completed }"
+            (click)="filter.set(filters.Completed)"
+            >Completed</a
+          >
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
-      <button class="clear-completed">Clear completed</button>
+      <button (click)="clearCompleted()" class="clear-completed">
+        Clear completed
+      </button>
     </footer>
   </div>
 </section>
