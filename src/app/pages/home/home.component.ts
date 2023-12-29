@@ -3,6 +3,7 @@ import {
   OnInit,
   WritableSignal,
   computed,
+  effect,
   signal,
 } from '@angular/core';
 import { Filters, TodoItem } from '../../types/index';
@@ -24,11 +25,7 @@ import {
 export class HomeComponent implements OnInit {
   todoForm!: FormGroup;
 
-  private taskList: WritableSignal<TodoItem[]> = signal([
-    { id: Math.random() * 1000, name: 'Learn JS', checked: true },
-    { id: Math.random() * 1000, name: 'Buy a unicorn', checked: false },
-    { id: Math.random() * 1000, name: 'Make dishes', checked: false },
-  ]);
+  private taskList: WritableSignal<TodoItem[]> = signal([]);
 
   filter: WritableSignal<Filters> = signal(Filters.All);
 
@@ -45,10 +42,20 @@ export class HomeComponent implements OnInit {
     return taskList;
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    effect(() => {
+      const tasks = this.taskList();
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    });
+  }
 
   ngOnInit() {
     this.initializeForm();
+    this.initializeTasks();
+  }
+
+  initializeTasks() {
+    this.taskList.set(JSON.parse(localStorage.getItem('tasks') || '') || []);
   }
 
   initializeForm() {
