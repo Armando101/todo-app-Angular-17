@@ -6,7 +6,7 @@ import {
   effect,
   signal,
 } from '@angular/core';
-import { Filters, TodoItem } from '../../types/index';
+import { Filters, TodoItem } from '@types';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
