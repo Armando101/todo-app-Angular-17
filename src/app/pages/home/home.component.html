@@ -19,10 +19,8 @@
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
       <ul class="todo-list">
-        <li
-          *ngFor="let task of taskByFilters()"
-          [ngClass]="{ completed: task.checked }"
-        >
+        @for (task of taskByFilters(); track task.id) {
+        <li [ngClass]="{ completed: task.checked }">
           <div class="view">
             <input
               class="toggle"
@@ -35,6 +33,7 @@
           </div>
           <input class="edit" [value]="task.name" />
         </li>
+        }
       </ul>
     </section>
     <!-- This footer should be hidden by default and shown when there are todos -->

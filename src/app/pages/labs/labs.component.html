@@ -1,6 +1,6 @@
 <h1>{{ name() }}</h1>
 <input type="text" [value]="name()" (keypress)="changeHandler($event)" />
-
 <p>Total {{ tasks().length }}</p>
-
-<li *ngFor="let task of tasks()">{{ task.name }}</li>
+@for (task of tasks(); track task) {
+  <li>{{ task.name }}</li>
+}
