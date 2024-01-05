@@ -1,1 +1,35 @@
-<p>user-info works!</p>
+<h1 class="flex justify-center text-3xl">User Info</h1>
+<hr />
+
+<div class="grid grid-cols-2 gap-6">
+  <div class="justify-self-end">
+    <h3 class="text-xl">Current user ID: {{ userId() }}</h3>
+
+    <app-button
+      (click)="loadUser(userId() - 1)"
+      [label]="'prev'"
+      [type]="'primary'"
+    ></app-button>
+
+    <app-button
+      (click)="loadUser(userId() + 1)"
+      [label]="'Next'"
+      [type]="'primary'"
+    ></app-button>
+  </div>
+
+  <div>
+    @if (currentUser()) {
+    <h3 class="text-xl">User:</h3>
+    <p>Email: {{ currentUser()?.email }}</p>
+    <p>Name: {{ fullName() }}</p>
+
+    <img class="rounded-lg" [src]="currentUser()?.avatar" alt="Avatar" />
+    }
+  </div>
+</div>
+
+@if (!userWasFound()) {
+
+<h3 class="text-xl text-red-600">User not found</h3>
+}
