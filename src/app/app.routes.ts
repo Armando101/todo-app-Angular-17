@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { labsRoutes } from './pages/labs/labs.routes';
 
 export const routes: Routes = [
   {
@@ -14,5 +15,6 @@ export const routes: Routes = [
   {
     path: 'labs',
     loadComponent: () => import('./pages/labs/labs.component'),
+    children: labsRoutes,
   },
 ];

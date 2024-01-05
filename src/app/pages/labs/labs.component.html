@@ -1,6 +1,8 @@
-<h1>{{ name() }}</h1>
-<input type="text" [value]="name()" (keypress)="changeHandler($event)" />
-<p>Total {{ tasks().length }}</p>
-@for (task of tasks(); track task) {
-  <li>{{ task.name }}</li>
-}
+<div class="container">
+  <div class="flex">
+    <app-sidebar-menu></app-sidebar-menu>
+    <div class="flex flex-1 justify-center">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

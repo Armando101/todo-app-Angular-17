@@ -1,0 +1,11 @@
+<ul>
+  @for (item of menuItems(); track item.route) {
+  <li
+    [routerLink]="[item.route]"
+    routerLinkActive="router-link-active"
+    class="cursor-pointer group h-12 px-6 flex items-center mb-2 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+  >
+    {{ item.title }}
+  </li>
+  }
+</ul>
