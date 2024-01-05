@@ -7,7 +7,7 @@ import { Component, signal } from '@angular/core';
   templateUrl: './labs.component.html',
   styleUrl: './labs.component.scss',
 })
-export class LabsComponent {
+export default class LabsComponent {
   name = signal('Armando');
 
   tasks = signal([{ name: 'Sweep' }, { name: 'swimming' }]);
