@@ -1,1 +1,32 @@
-<p>properties works!</p>
+<h1>Mutations</h1>
+<hr />
+
+<div class="grid grid-cols-2 gap-4">
+  <div class="flex flex-col">
+    <label class="mt-4">Email</label>
+    <input
+      class="mb-2"
+      #txtEmail
+      (input)="onFieldUpdate('email', txtEmail.value)"
+      type="text"
+    />
+    <label class="mt-4">First name</label>
+    <input
+      class="mb-2"
+      #txtFirstName
+      (input)="onFieldUpdate('first_name', txtFirstName.value)"
+      type="text"
+    />
+    <label class="mt-4">Last name</label>
+    <input
+      class="mb-2"
+      #txtLastName
+      (input)="onFieldUpdate('last_name', txtLastName.value)"
+      type="text"
+    />
+  </div>
+
+  <div>
+    <pre>{{ user() | json }}</pre>
+  </div>
+</div>
